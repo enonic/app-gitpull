@@ -31,6 +31,8 @@ public class GitPullEntryTest
         assertNull( entry.getCredentialsProvider() );
 
         entry.user = "user";
+        assertNull( entry.getCredentialsProvider() );
+
         entry.password = "password";
         assertNotNull( entry.getCredentialsProvider() );
     }
