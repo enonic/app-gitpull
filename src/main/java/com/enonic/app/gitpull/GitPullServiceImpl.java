@@ -5,7 +5,7 @@ import java.util.Map;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 
-@Component(immediate = true)
+@Component(immediate = true, configurationPid = "com.enonic.app.gitpull")
 public final class GitPullServiceImpl
     implements GitPullService
 {
