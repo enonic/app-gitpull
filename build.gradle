@@ -1,0 +1,60 @@
+buildscript {
+    repositories {
+        jcenter()
+        maven {
+            url 'http://repo.enonic.net/public'
+        }
+    }
+
+    dependencies {
+        classpath "com.enonic.xp:gradle-plugin:${xpVersion}"
+    }
+}
+
+apply plugin: 'jacoco'
+apply plugin: 'maven-publish'
+apply plugin: 'com.enonic.xp.app'
+
+repositories {
+    mavenCentral()
+    maven {
+        url 'http://repo.enonic.com/public'
+    }
+}
+
+app {
+    name = 'com.enonic.app.gitpull'
+    displayName = 'GitPull App'
+    vendorName = 'Enonic AS'
+    vendorUrl = 'http://enonic.com'
+}
+
+dependencies {
+    compile "com.enonic.xp:core-api:${xpVersion}"
+    compile "com.enonic.xp:jaxrs-api:${xpVersion}"
+    include 'org.eclipse.jgit:org.eclipse.jgit:4.5.0.201609210915-r'
+    testCompile 'junit:junit:4.10'
+    testCompile "com.enonic.xp:testing:${xpVersion}"
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+}
+
+check.dependsOn jacocoTestReport
+
+publishing {
+    publications {
+        mavenJava( MavenPublication ) {
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            url 'http://repo.enonic.net/artifactory/public'
+        }
+    }
+}
