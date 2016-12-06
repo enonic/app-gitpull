@@ -56,7 +56,6 @@ final class GitPullConfig
             keySet().
             stream().
             map( str -> str.split( "\\." ) ).
-            filter( array -> array.length != 0 ).
             map( array -> array[0] ).
             collect( Collectors.toSet() );
     }
