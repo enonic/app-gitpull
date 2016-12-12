@@ -10,7 +10,7 @@ import org.osgi.service.component.annotations.Reference;
 import com.enonic.xp.jaxrs.JaxRsComponent;
 import com.enonic.xp.security.RoleKeys;
 
-@Component(immediate = true)
+@Component(immediate = true, property="group=api")
 @Path("/api/ext/gitpull")
 @RolesAllowed(RoleKeys.ADMIN_ID)
 public final class GitPullResource
