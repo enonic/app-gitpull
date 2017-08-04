@@ -8,14 +8,17 @@ buildscript {
 
     dependencies {
         classpath "com.enonic.xp:gradle-plugin:${xpVersion}"
+        classpath 'com.enonic.gradle:gradle-defaults:1.0.1'
     }
 }
 
+apply plugin: 'com.enonic.defaults'
 apply plugin: 'jacoco'
-apply plugin: 'maven-publish'
+apply plugin: 'maven'
 apply plugin: 'com.enonic.xp.app'
 
 repositories {
+    jcenter()
     mavenCentral()
     maven {
         url 'http://repo.enonic.com/public'
@@ -45,16 +48,3 @@ jacocoTestReport {
 }
 
 check.dependsOn jacocoTestReport
-
-publishing {
-    publications {
-        mavenJava( MavenPublication ) {
-            from components.java
-        }
-    }
-    repositories {
-        maven {
-            url 'http://repo.enonic.net/artifactory/public'
-        }
-    }
-}
