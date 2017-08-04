@@ -38,4 +38,4 @@ dev.dir = ${xp.home}/config/dev
 Every time the app is triggered, all configured repos will be pulled.  There are three ways to trigger the app:
 * Start the server
 * Start the app - using the Applications app (after stopping it first), or by (re-)deploying it.
-* Using the REST endpoint (method = PULL), `/api/ext/gitpull`.  The request must be authenticated.
+* Using the REST endpoint (method = POST), `/api/ext/gitpull`.  The request must be authenticated.
