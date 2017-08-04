@@ -33,4 +33,6 @@ dev.url = https://some/git/url
 dev.dir = ${xp.home}/config/dev
 ```
 
-This will pull down to the destination directory every time it's maually triggered and when the app (or server) is started.
+This will pull down or update each repo to the destination directory every time it's maually triggered and when the app (or server) is started.
+
+To manually trigger the pull, make an authenticated REST request (method = PULL) to the server, using the path, `/api/ext/gitpull`.

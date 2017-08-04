@@ -63,7 +63,7 @@ final class GitRepoPullerImpl
             Git.cloneRepository().
                 setCredentialsProvider( entry.getCredentialsProvider() ).
                 setDirectory( entry.dir ).
-                setURI( entry.uri ).
+                setURI( entry.url ).
                 setBare( false ).
                 call();
             LOG.info( "Cloned git repository [" + entry.name + "]" );

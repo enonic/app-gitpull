@@ -9,7 +9,7 @@ final class GitPullEntry
 {
     String name;
 
-    String uri;
+    String url;
 
     String user;
 
@@ -19,7 +19,7 @@ final class GitPullEntry
 
     boolean isValid()
     {
-        return ( this.name != null ) && ( this.uri != null ) && ( this.dir != null );
+        return ( this.name != null ) && ( this.url != null ) && ( this.dir != null );
     }
 
     CredentialsProvider getCredentialsProvider()

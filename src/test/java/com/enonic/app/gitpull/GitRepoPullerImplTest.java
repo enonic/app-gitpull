@@ -44,7 +44,7 @@ public class GitRepoPullerImplTest
     public void testPull()
         throws Exception
     {
-        this.entry.uri = this.gitRepoDir.toURI().toString();
+        this.entry.url = this.gitRepoDir.toURI().toString();
         final GitRepoPuller puller = new GitRepoPullerImpl();
         puller.pull( this.entry );
 
@@ -74,7 +74,7 @@ public class GitRepoPullerImplTest
     public void testClone_error()
         throws Exception
     {
-        this.entry.uri = "wrong-uri";
+        this.entry.url = "wrong-url";
         final GitRepoPuller puller = new GitRepoPullerImpl();
         puller.pull( this.entry );
     }

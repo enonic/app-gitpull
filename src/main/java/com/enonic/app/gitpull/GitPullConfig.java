@@ -41,7 +41,7 @@ final class GitPullConfig
     {
         final GitPullEntry entry = new GitPullEntry();
         entry.name = name;
-        entry.uri = Strings.emptyToNull( props.get( name + ".uri" ) );
+        entry.url = Strings.emptyToNull( props.get( name + ".url" ) );
         entry.user = Strings.emptyToNull( props.get( name + ".user" ) );
         entry.password = Strings.emptyToNull( props.get( name + ".password" ) );
 

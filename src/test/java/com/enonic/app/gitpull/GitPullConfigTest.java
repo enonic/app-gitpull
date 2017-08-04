@@ -16,12 +16,12 @@ public class GitPullConfigTest
         final Map<String, String> props = Maps.newHashMap();
         props.put( "a", "1" );
 
-        props.put( "b.uri", "uri" );
+        props.put( "b.url", "url" );
 
-        props.put( "c.uri", "uri" );
+        props.put( "c.url", "url" );
         props.put( "c.dir", "dir" );
 
-        props.put( "d.uri", "uri" );
+        props.put( "d.url", "url" );
         props.put( "d.dir", "dir" );
         props.put( "d.user", "user" );
         props.put( "d.password", "password" );
@@ -34,7 +34,7 @@ public class GitPullConfigTest
         final GitPullEntry entry1 = entries.get( "c" );
         assertNotNull( entry1 );
         assertEquals( "c", entry1.name );
-        assertEquals( "uri", entry1.uri );
+        assertEquals( "url", entry1.url );
         assertEquals( "dir", entry1.dir.getName() );
         assertNull( entry1.user );
         assertNull( entry1.password );
@@ -42,7 +42,7 @@ public class GitPullConfigTest
         final GitPullEntry entry2 = entries.get( "d" );
         assertNotNull( entry2 );
         assertEquals( "d", entry2.name );
-        assertEquals( "uri", entry2.uri );
+        assertEquals( "url", entry2.url );
         assertEquals( "dir", entry2.dir.getName() );
         assertEquals( "user", entry2.user );
         assertEquals( "password", entry2.password );

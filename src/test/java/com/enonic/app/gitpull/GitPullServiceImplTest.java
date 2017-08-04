@@ -26,9 +26,9 @@ public class GitPullServiceImplTest
     public void testPullAll()
     {
         final Map<String, String> props = Maps.newHashMap();
-        props.put( "a.uri", "uri" );
+        props.put( "a.url", "url" );
         props.put( "a.dir", "dir" );
-        props.put( "b.uri", "uri" );
+        props.put( "b.url", "url" );
         props.put( "b.dir", "dir" );
 
         this.service.activate( props );

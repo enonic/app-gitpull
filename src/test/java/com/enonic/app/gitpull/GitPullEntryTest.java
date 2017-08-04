@@ -17,7 +17,7 @@ public class GitPullEntryTest
         entry.name = "name";
         assertFalse( entry.isValid() );
 
-        entry.uri = "uri";
+        entry.url = "url";
         assertFalse( entry.isValid() );
 
         entry.dir = new File( "." );
