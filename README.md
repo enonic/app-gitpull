@@ -11,8 +11,8 @@ triggered to pull on demand.
 
 ## Configuration
 
-To configure this application, just place a file named `com.enonic.app.gitpull.cfg` inside one of your configuration directories. This
-file holds a set of repositories to pull from. Every set is named and the keys is described as follows:
+To configure this application, just place a file named `com.enonic.app.gitpull.cfg` inside one of your `$XP_HOME` configuration directories. This
+file holds a set of repositories to pull from. Every set is named and the keys are described as follows:
 
 * `<name>.url`      - Git URL (only http and https is supported).
 * `<name>.user`     - Git server user (optional).
