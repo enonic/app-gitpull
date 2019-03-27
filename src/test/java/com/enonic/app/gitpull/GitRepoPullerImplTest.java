@@ -10,6 +10,9 @@ import org.junit.rules.TemporaryFolder;
 
 import com.google.common.io.Files;
 
+import com.enonic.app.gitpull.authentication.UserPasswordAuthentication;
+import com.enonic.app.gitpull.connection.GitHTTPSConnection;
+
 import static org.junit.Assert.*;
 
 public class GitRepoPullerImplTest
@@ -18,8 +21,6 @@ public class GitRepoPullerImplTest
     public final TemporaryFolder temporaryFolder = new TemporaryFolder();
 
     private Git sourceRepo;
-
-    private GitPullEntry entry;
 
     private File gitRepoDir;
 
@@ -34,21 +35,26 @@ public class GitRepoPullerImplTest
         this.sourceRepo.add().addFilepattern( "." ).call();
         this.sourceRepo.add().setUpdate( true ).addFilepattern( "." ).call();
         this.sourceRepo.commit().setAll( true ).setMessage( "Initial commit" ).call();
-
-        this.entry = new GitPullEntry();
-        this.entry.name = "test";
-        this.entry.dir = this.temporaryFolder.newFolder( "checkout" );
     }
 
     @Test
     public void testPull()
         throws Exception
     {
-        this.entry.url = this.gitRepoDir.toURI().toString();
-        final GitRepoPuller puller = new GitRepoPullerImpl();
-        puller.pull( this.entry );
+        final String repoDir = this.gitRepoDir.toURI().toString();
 
-        final File file1 = new File( this.entry.dir, "test.txt" );
+        final GitHTTPSConnection conn = GitHTTPSConnection.create().
+            name( "test" ).
+            url( repoDir ).
+            dir( this.temporaryFolder.newFolder( "checkout" ) ).
+            authenticationEntry( new UserPasswordAuthentication( "fisk", "ost" ) ).
+            build();
+
+        final GitRepoPuller puller = new GitRepoPullerImpl();
+
+        puller.pull( conn );
+
+        final File file1 = new File( conn.getDir(), "test.txt" );
         assertTrue( file1.exists() );
 
         Files.touch( new File( this.gitRepoDir, "other.txt" ) );
@@ -56,26 +62,9 @@ public class GitRepoPullerImplTest
         this.sourceRepo.add().setUpdate( true ).addFilepattern( "." ).call();
         this.sourceRepo.commit().setAll( true ).setMessage( "New commit" ).call();
 
-        puller.pull( this.entry );
+        puller.pull( conn );
 
-        final File file2 = new File( this.entry.dir, "other.txt" );
+        final File file2 = new File( conn.getDir(), "other.txt" );
         assertTrue( file2.exists() );
-    }
-
-    @Test
-    public void testPull_error()
-        throws Exception
-    {
-        final GitRepoPullerImpl puller = new GitRepoPullerImpl();
-        puller.doPull( this.sourceRepo, this.entry );
-    }
-
-    @Test
-    public void testClone_error()
-        throws Exception
-    {
-        this.entry.url = "wrong-url";
-        final GitRepoPuller puller = new GitRepoPullerImpl();
-        puller.pull( this.entry );
     }
 }

@@ -4,51 +4,45 @@ import org.eclipse.jgit.api.Git;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.enonic.app.gitpull.connection.GitConnection;
+
 final class GitRepoPullerImpl
     implements GitRepoPuller
 {
     private final static Logger LOG = LoggerFactory.getLogger( GitRepoPullerImpl.class );
 
     @Override
-    public void pull( final GitPullEntry entry )
+    public void pull( final GitConnection connection )
     {
-        if ( !doPull( entry ) )
+
+        if ( !doPull( connection ) )
         {
-            doClone( entry );
+            doClone( connection );
         }
     }
 
-    private boolean doPull( final GitPullEntry entry )
+    private boolean doPull( final GitConnection connection )
     {
-        final Git git = doOpen( entry );
+        final Git git = doOpen( connection );
         if ( git == null )
         {
             return false;
         }
 
-        doPull( git, entry );
+        doPull( git, connection );
         return true;
     }
 
-    void doPull( final Git git, final GitPullEntry entry )
+    private void doPull( final Git git, final GitConnection entry )
     {
-        try
-        {
-            git.reset();
-            git.pull().setCredentialsProvider( entry.getCredentialsProvider() ).call();
-            LOG.info( "Pulled in changes from git repository [" + entry.name + "]" );
-        }
-        catch ( final Exception e )
-        {
-            LOG.error( "Error pulling git repository [" + entry.name + "]", e );
-        }
+        entry.pull( git );
     }
 
-    private Git doOpen( final GitPullEntry entry )
+    private Git doOpen( final GitConnection connection )
     {
         try
         {
-            return Git.open( entry.dir );
+            return Git.open( connection.getDir() );
         }
         catch ( final Exception e )
         {
@@ -56,21 +50,16 @@ final class GitRepoPullerImpl
         }
     }
 
-    private void doClone( final GitPullEntry entry )
+    private void doClone( final GitConnection connection )
     {
         try
         {
-            Git.cloneRepository().
-                setCredentialsProvider( entry.getCredentialsProvider() ).
-                setDirectory( entry.dir ).
-                setURI( entry.url ).
-                setBare( false ).
-                call();
-            LOG.info( "Cloned git repository [" + entry.name + "]" );
+            connection.gitClone();
+            LOG.info( "Cloned git repository [" + connection.getName() + "]" );
         }
         catch ( final Exception e )
         {
-            LOG.error( "Error cloning git repository [" + entry.name + "]", e );
+            LOG.error( "Error cloning git repository [" + connection.getName() + "]", e );
         }
     }
 }
