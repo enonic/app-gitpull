@@ -8,7 +8,7 @@ import org.osgi.service.component.annotations.Component;
 import com.enonic.app.gitpull.connection.GitConnection;
 
 @Component(immediate = true, configurationPid = "com.enonic.app.gitpull")
-final class GitPullServiceImpl
+public final class GitPullServiceImpl
     implements GitPullService
 {
     private GitConnectionConfig config;

@@ -138,6 +138,9 @@ final class GitConnectionConfig
         return props.
             keySet().
             stream().
+            filter( str -> !str.startsWith( "component." ) ).
+            filter( str -> !str.startsWith( "service." ) ).
+            filter( str -> !str.startsWith( "config." ) ).
             map( str -> str.split( "\\." ) ).
             map( array -> array[0] ).
             collect( Collectors.toSet() );
