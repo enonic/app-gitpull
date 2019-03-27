@@ -21,8 +21,8 @@ file holds a set of repositories to pull from. Every set is named and the keys a
 * `<name>.password` - Git server password (optional).
 
 ### SSH-Authentication
-* `<name>.keyPath`  - SSH private key path (required for ssh-connections).
-* `<name>.strictHostKeyChecking`  - Boolean; Allow ssh to hosts without specifying hosts in hosts-file.
+* `<name>.keyPath`  - SSH private key path
+* `<name>.strictHostKeyChecking`  - Boolean, allow ssh to hosts without specifying hosts in hosts-file.
 
 Here's an example:
 
