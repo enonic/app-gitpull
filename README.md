@@ -8,15 +8,16 @@ This Enonic XP application pulls changes from multiple configured git repositori
 triggered to pull on demand.
 
 
-
 ## Configuration
 
 To configure this application, just place a file named `com.enonic.app.gitpull.cfg` inside one of your configuration directories. This
 file holds a set of repositories to pull from. Every set is named and the keys are described as follows:
 
-* `<name>.url`      - Git URL (only http and https is supported).
+* `<name>.url`      - Git URL (http, https, ssh).
 * `<name>.user`     - Git server user (optional).
 * `<name>.password` - Git server password (optional).
+* `<name>.keyPath`  - SSH private key path (required for ssh-connections).
+* `<name>.strictHostKeyChecking`  - Boolean; Allow ssh to hosts without specifying hosts in hosts-file.
 * `<name>.dir`      - Destination directory to checkout.
 
 Here's an example:
@@ -29,9 +30,23 @@ prod.password = password
 prod.dir = ${xp.home}/config/prod
 
 # Repo two
-dev.url = https://some/git/url
-dev.dir = ${xp.home}/config/dev
+gitProd.url=ssh://git@github.com:agituser/agitrepo.git, 
+gitProd.dir=prod.dir = ${xp.home}/config/gitProd
+gitProd.keyPath=${xp.home}/config/ssh/id_rsa, 
+gitProd.keyPath=${xp.home}/config/ssh/id_rsa
+gitProd.strictHostKeyChecking=false, 
 ```
+
+## Using SSH-Keys
+
+The jgit is a bit particular on the format of the key, so use the ```-m PEM```-switch to generate keys if having trouble with private key not accepted, e.g
+
+````
+ssh-keygen -t rsa -m PEM
+````
+
+Using the ```strictHostKeyChecking```=false is an alternative to adding the host to ```~/.ssh/known_hosts```
+
 
 ## Usage
 
