@@ -48,7 +48,7 @@ The jgit is a bit particular on the format of the key, so use the ```-m PEM```-s
 ssh-keygen -t rsa -m PEM
 ````
 
-Using the ```strictHostKeyChecking```=false is an alternative to adding the host to ```~/.ssh/known_hosts```
+To allow ssh to a repo, add host to ```~/.ssh/known_hosts```, or optionally specify the ```strictHostKeyChecking=false``` option on a connection 
 
 
 ## Usage
