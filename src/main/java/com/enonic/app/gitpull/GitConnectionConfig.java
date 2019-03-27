@@ -32,7 +32,7 @@ final class GitConnectionConfig
 
     private enum ConnectionType
     {
-        SSH, HTTPS
+        SSH, HTTP, HTTPS
     }
 
     Map<String, GitConnection> toMap()
@@ -76,7 +76,7 @@ final class GitConnectionConfig
             return null;
         }
 
-        if ( connectionType == ConnectionType.HTTPS )
+        if ( connectionType == ConnectionType.HTTPS || connectionType == ConnectionType.HTTP )
         {
             GitAuthenticationEntry httpsAuthentication = createHttpsAuthentication( name, props );
 
@@ -117,6 +117,11 @@ final class GitConnectionConfig
         if ( url.toLowerCase().startsWith( "https://" ) )
         {
             return ConnectionType.HTTPS;
+        }
+
+        if ( url.toLowerCase().startsWith( "http://" ) )
+        {
+            return ConnectionType.HTTP;
         }
 
         if ( url.toLowerCase().startsWith( "ssh://" ) )
