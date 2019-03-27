@@ -32,9 +32,8 @@ prod.dir = ${xp.home}/config/prod
 # Repo two
 gitProd.url=ssh://git@github.com:agituser/agitrepo.git, 
 gitProd.dir=prod.dir = ${xp.home}/config/gitProd
-gitProd.keyPath=${xp.home}/config/ssh/id_rsa, 
 gitProd.keyPath=${xp.home}/config/ssh/id_rsa
-gitProd.strictHostKeyChecking=false, 
+gitProd.strictHostKeyChecking=false
 ```
 
 ## Using SSH-Keys
