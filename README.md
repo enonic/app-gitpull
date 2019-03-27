@@ -14,11 +14,15 @@ To configure this application, just place a file named `com.enonic.app.gitpull.c
 file holds a set of repositories to pull from. Every set is named and the keys are described as follows:
 
 * `<name>.url`      - Git URL (http, https, ssh).
+* `<name>.dir`      - Destination directory to checkout.
+
+### HTTPS-Authentication 
 * `<name>.user`     - Git server user (optional).
 * `<name>.password` - Git server password (optional).
+
+### SSH-Authentication
 * `<name>.keyPath`  - SSH private key path (required for ssh-connections).
 * `<name>.strictHostKeyChecking`  - Boolean; Allow ssh to hosts without specifying hosts in hosts-file.
-* `<name>.dir`      - Destination directory to checkout.
 
 Here's an example:
 
