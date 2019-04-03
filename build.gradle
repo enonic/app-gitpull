@@ -1,28 +1,14 @@
-buildscript {
-    repositories {
-        jcenter()
-        maven {
-            url 'http://repo.enonic.net/public'
-        }
-    }
-
-    dependencies {
-        classpath "com.enonic.xp:gradle-plugin:${xpVersion}"
-        classpath 'com.enonic.gradle:gradle-defaults:1.0.1'
-    }
+plugins {
+    id 'jacoco'
+    id 'com.enonic.defaults' version '2.0.1'
+    id 'com.enonic.xp.app' version '2.0.0'
+    id 'maven-publish'
 }
-
-apply plugin: 'com.enonic.defaults'
-apply plugin: 'jacoco'
-apply plugin: 'maven'
-apply plugin: 'com.enonic.xp.app'
 
 repositories {
     jcenter()
     mavenCentral()
-    maven {
-        url 'http://repo.enonic.com/public'
-    }
+    xp.enonicRepo()
 }
 
 app {
@@ -30,6 +16,7 @@ app {
     displayName = 'GitPull App'
     vendorName = 'Enonic AS'
     vendorUrl = 'http://enonic.com'
+    systemVersion = "${xpVersion}"
 }
 
 dependencies {
@@ -37,6 +24,7 @@ dependencies {
     compile "com.enonic.xp:jaxrs-api:${xpVersion}"
     include 'org.eclipse.jgit:org.eclipse.jgit:5.3.0.201903130848-r'
     testCompile 'junit:junit:4.10'
+    testCompile 'org.mockito:mockito-core:+'
     testCompile "com.enonic.xp:testing:${xpVersion}"
 }
 
