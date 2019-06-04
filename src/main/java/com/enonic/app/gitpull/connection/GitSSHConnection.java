@@ -61,7 +61,7 @@ public class GitSSHConnection
             git.pull().
                 setTransportConfigCallback( transport -> {
                     SshTransport sshTransport = (SshTransport) transport;
-                    sshTransport.setSshSessionFactory( createFactory() );
+                    sshTransport.setSshSessionFactory( this.sessionFactory );
                 } ).
                 call();
             LOG.info( "Pulled in changes from git repository [" + this.name + "]" );
@@ -86,6 +86,7 @@ public class GitSSHConnection
                     sshTransport.setSshSessionFactory( this.sessionFactory );
                 } ).
                 call();
+            LOG.info( "Cloned git repository [" + this.name + "]" );
         }
         catch ( final Exception e )
         {
