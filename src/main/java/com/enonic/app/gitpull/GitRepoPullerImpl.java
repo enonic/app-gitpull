@@ -14,7 +14,6 @@ final class GitRepoPullerImpl
     @Override
     public void pull( final GitConnection connection )
     {
-
         if ( !doPull( connection ) )
         {
             doClone( connection );
@@ -26,10 +25,13 @@ final class GitRepoPullerImpl
         final Git git = doOpen( connection );
         if ( git == null )
         {
+            LOG.info( "Local repo [" + connection.getName() + "] not found in [" + connection.getDir() + "]" );
             return false;
         }
 
+        LOG.info( "Pulling repo " + git.getRepository() );
         doPull( git, connection );
+
         return true;
     }
 
@@ -52,14 +54,6 @@ final class GitRepoPullerImpl
 
     private void doClone( final GitConnection connection )
     {
-        try
-        {
-            connection.gitClone();
-            LOG.info( "Cloned git repository [" + connection.getName() + "]" );
-        }
-        catch ( final Exception e )
-        {
-            LOG.error( "Error cloning git repository [" + connection.getName() + "]", e );
-        }
+        connection.gitClone();
     }
 }

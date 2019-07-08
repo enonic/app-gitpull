@@ -11,6 +11,7 @@ repositories {
     xp.enonicRepo()
 }
 
+
 app {
     name = 'com.enonic.app.gitpull'
     displayName = 'GitPull App'
@@ -18,6 +19,8 @@ app {
     vendorUrl = 'http://enonic.com'
     systemVersion = "${xpVersion}"
 }
+
+
 
 dependencies {
     compile "com.enonic.xp:core-api:${xpVersion}"
@@ -28,11 +31,9 @@ dependencies {
     testCompile "com.enonic.xp:testing:${xpVersion}"
 }
 
-jacocoTestReport {
-    reports {
-        xml.enabled = true
-        html.enabled = true
-    }
-}
 
-check.dependsOn jacocoTestReport
+repositories {
+    mavenLocal()
+    jcenter()
+    xp.enonicRepo()
+}

@@ -90,10 +90,11 @@ final class GitConnectionConfig
 
         if ( connectionType == ConnectionType.SSH )
         {
-            final String privateKey = Strings.emptyToNull( props.get( name + ".keyPath" ) );
+            String keyName = props.get( name + ".keyPath" );
+            final String privateKey = Strings.emptyToNull( keyName );
             if ( privateKey == null || !Files.isReadable( Paths.get( privateKey ) ) )
             {
-                LOG.error( "Cannot find or read private key-path for connection [{}]", name );
+                LOG.error( "Cannot find or read private key-path for connection [{}] in path [{}]", name, keyName );
                 return null;
             }
 
