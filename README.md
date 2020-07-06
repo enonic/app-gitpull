@@ -1,6 +1,6 @@
 # GitPull for Enonic XP
 
-[![Actions Status](https://github.com/enonic/!!!/workflows/Gradle%20Build/badge.svg)](https://github.com/enonic/!!!/actions)
+[![Actions Status](https://github.com/enonic/app-gitpull/workflows/Gradle%20Build/badge.svg)](https://github.com/enonic/app-gitpull/actions)
 [![codecov](https://codecov.io/gh/enonic/app-gitpull/branch/master/graph/badge.svg)](https://codecov.io/gh/enonic/app-gitpull)
 [![License](https://img.shields.io/github/license/enonic/app-gitpull.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 
