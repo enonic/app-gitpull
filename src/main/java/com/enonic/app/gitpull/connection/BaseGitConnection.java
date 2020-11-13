@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Preconditions;
 
+import com.enonic.app.gitpull.GitPullConstants;
+
 abstract class BaseGitConnection
     implements GitConnection
 {
@@ -16,6 +18,8 @@ abstract class BaseGitConnection
 
     final File dir;
 
+    final Integer timeout;
+
     final Logger LOG = LoggerFactory.getLogger( this.getClass() );
 
     BaseGitConnection( final Builder builder )
@@ -23,6 +27,7 @@ abstract class BaseGitConnection
         name = builder.name;
         url = builder.url;
         dir = builder.dir;
+        timeout = builder.timeout != null ? builder.timeout : GitPullConstants.DEFAULT_TIMEOUT_IN_SECONDS;
     }
 
     @Override
@@ -36,11 +41,16 @@ abstract class BaseGitConnection
         return url;
     }
 
+    @Override
     public File getDir()
     {
         return dir;
     }
 
+    public Integer getTimeout()
+    {
+        return timeout;
+    }
 
     public static class Builder<B extends Builder>
     {
@@ -49,6 +59,8 @@ abstract class BaseGitConnection
         private String url;
 
         private File dir;
+
+        private Integer timeout;
 
         public Builder()
         {
@@ -72,6 +84,13 @@ abstract class BaseGitConnection
         public B dir( final File val )
         {
             dir = val;
+            return (B) this;
+        }
+
+        @SuppressWarnings("unchecked")
+        public B timeout( final Integer val )
+        {
+            timeout = val;
             return (B) this;
         }
 

@@ -59,6 +59,7 @@ public class GitSSHConnection
         {
             git.reset();
             git.pull().
+                setTimeout( this.timeout ).
                 setTransportConfigCallback( transport -> {
                     SshTransport sshTransport = (SshTransport) transport;
                     sshTransport.setSshSessionFactory( this.sessionFactory );
@@ -81,6 +82,7 @@ public class GitSSHConnection
                 setURI( this.url ).
                 setDirectory( this.dir ).
                 setBare( false ).
+                setTimeout( this.timeout ).
                 setTransportConfigCallback( transport -> {
                     SshTransport sshTransport = (SshTransport) transport;
                     sshTransport.setSshSessionFactory( this.sessionFactory );

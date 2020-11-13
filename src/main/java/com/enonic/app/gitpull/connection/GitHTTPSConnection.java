@@ -23,7 +23,10 @@ public class GitHTTPSConnection
         try
         {
             git.reset();
-            git.pull().setCredentialsProvider( this.authenticationEntry.getCredentialsProvider() ).call();
+            git.pull().
+                setCredentialsProvider( this.authenticationEntry.getCredentialsProvider() ).
+                setTimeout( this.timeout ).
+                call();
             LOG.info( "Pulled in changes from git repository [" + this.name + "]" );
         }
         catch ( final Exception e )
@@ -32,6 +35,7 @@ public class GitHTTPSConnection
         }
     }
 
+    @Override
     public void gitClone()
     {
         try
@@ -41,6 +45,7 @@ public class GitHTTPSConnection
                 setDirectory( this.dir ).
                 setURI( this.url ).
                 setBare( false ).
+                setTimeout( this.timeout ).
                 call();
         }
         catch ( final Exception e )

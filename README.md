@@ -15,6 +15,7 @@ file holds a set of repositories to pull from. Every set is named and the keys a
 
 * `<name>.url`      - Git URL (http, https, ssh).
 * `<name>.dir`      - Destination directory to checkout.
+* `<name>.timeout`  - Connection timeout in seconds, by default 60 seconds.
 
 ### HTTPS-Authentication 
 * `<name>.user`     - Git server user (optional).
@@ -32,10 +33,12 @@ prod.url = https://some/git/url
 prod.user = username
 prod.password = password
 prod.dir = ${xp.home}/config/prod
+prod.timeout = 60
 
 # Repo two
 gitProd.url=ssh://git@github.com:agituser/agitrepo.git, 
 gitProd.dir=prod.dir = ${xp.home}/config/gitProd
+gitProd.timeout = 60
 gitProd.keyPath=${xp.home}/config/ssh/id_rsa
 gitProd.strictHostKeyChecking=false
 ```
