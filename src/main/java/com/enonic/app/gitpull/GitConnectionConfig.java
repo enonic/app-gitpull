@@ -68,6 +68,8 @@ final class GitConnectionConfig
 
         final String dir = Strings.emptyToNull( props.get( name + ".dir" ) );
 
+        final Integer timeout = getConnectionTimeout( name, props );
+
         final ConnectionType connectionType = getConnectionType( url );
 
         if ( connectionType == null )
@@ -84,6 +86,7 @@ final class GitConnectionConfig
                 dir( dir != null ? new File( dir ) : null ).
                 name( name ).
                 url( url ).
+                timeout( timeout ).
                 authenticationEntry( httpsAuthentication ).
                 build();
         }
@@ -104,6 +107,7 @@ final class GitConnectionConfig
                 dir( dir != null ? new File( dir ) : null ).
                 name( name ).
                 url( url ).
+                timeout( timeout ).
                 strictHostKeyChecking( Strings.isNullOrEmpty( strictHostKeyChecking ) || Boolean.getBoolean( strictHostKeyChecking ) ).
                 privateKeyLocation( new File( privateKey ) ).
                 build();
@@ -137,6 +141,13 @@ final class GitConnectionConfig
     private static GitAuthenticationEntry createHttpsAuthentication( final String name, final Map<String, String> props )
     {
         return new UserPasswordAuthentication( props.get( name + ".user" ), props.get( name + ".password" ) );
+    }
+
+    private static Integer getConnectionTimeout( final String name, final Map<String, String> props )
+    {
+        final String timeoutAsString = Strings.emptyToNull( props.get( name + ".timeout" ) );
+
+        return timeoutAsString != null ? Integer.parseInt( timeoutAsString ) : GitPullConstants.DEFAULT_TIMEOUT_IN_SECONDS;
     }
 
     private static Set<String> findNames( final Map<String, String> props )
