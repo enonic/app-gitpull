@@ -67,4 +67,49 @@ public class GitConnectionConfigTest
         assertNotNull( authenticationEntry );
         assertNotNull( authenticationEntry.getCredentialsProvider() );
     }
+
+    @Test
+    public void https_branch()
+    {
+        final Map<String, String> props = Maps.newHashMap();
+        props.put( "repo.url", "https://fisk" );
+        props.put( "repo.dir", "dir" );
+        props.put( "repo.user", "user" );
+        props.put( "repo.password", "password" );
+        props.put( "repo.ref", "develop" );
+
+        final GitConnectionConfig config = GitConnectionConfig.create( props );
+        final Map<String, GitConnection> entries = config.toMap();
+
+        assertEquals( 1, entries.size() );
+        final GitConnection connection = entries.get( "repo" );
+        assertTrue( connection instanceof GitHTTPSConnection );
+
+        final String ref = ( (GitHTTPSConnection) connection ).getRef();
+        assertNotNull( ref );
+        assertEquals( "develop", ref );
+    }
+
+    @Test
+    public void https_timeout()
+    {
+        final Map<String, String> props = Maps.newHashMap();
+        props.put( "repo.url", "https://fisk" );
+        props.put( "repo.dir", "dir" );
+        props.put( "repo.user", "user" );
+        props.put( "repo.password", "password" );
+        props.put( "repo.timeout", "30" );
+
+        final GitConnectionConfig config = GitConnectionConfig.create( props );
+        final Map<String, GitConnection> entries = config.toMap();
+
+        assertEquals( 1, entries.size() );
+        final GitConnection connection = entries.get( "repo" );
+        assertTrue( connection instanceof GitHTTPSConnection );
+
+        final Integer timeout = ( (GitHTTPSConnection) connection ).getTimeout();
+        assertNotNull( timeout );
+        assertEquals( 30, timeout.intValue() );
+    }
+
 }

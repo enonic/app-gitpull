@@ -20,6 +20,8 @@ abstract class BaseGitConnection
 
     final Integer timeout;
 
+    final String ref;
+
     final Logger LOG = LoggerFactory.getLogger( this.getClass() );
 
     BaseGitConnection( final Builder builder )
@@ -27,6 +29,7 @@ abstract class BaseGitConnection
         name = builder.name;
         url = builder.url;
         dir = builder.dir;
+        ref = builder.ref;
         timeout = builder.timeout != null ? builder.timeout : GitPullConstants.DEFAULT_TIMEOUT_IN_SECONDS;
     }
 
@@ -52,6 +55,11 @@ abstract class BaseGitConnection
         return timeout;
     }
 
+    public String getRef()
+    {
+        return ref;
+    }
+
     public static class Builder<B extends Builder>
     {
         private String name;
@@ -61,6 +69,8 @@ abstract class BaseGitConnection
         private File dir;
 
         private Integer timeout;
+
+        private String ref;
 
         public Builder()
         {
@@ -91,6 +101,13 @@ abstract class BaseGitConnection
         public B timeout( final Integer val )
         {
             timeout = val;
+            return (B) this;
+        }
+
+        @SuppressWarnings("unchecked")
+        public B ref( final String val )
+        {
+            ref = val;
             return (B) this;
         }
 

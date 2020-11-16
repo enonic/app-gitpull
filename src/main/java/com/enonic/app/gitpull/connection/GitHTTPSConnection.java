@@ -1,8 +1,11 @@
 package com.enonic.app.gitpull.connection;
 
+import org.eclipse.jgit.api.CloneCommand;
 import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.PullCommand;
 
 import com.google.common.base.Preconditions;
+import com.google.common.base.Strings;
 
 import com.enonic.app.gitpull.authentication.GitAuthenticationEntry;
 
@@ -23,10 +26,17 @@ public class GitHTTPSConnection
         try
         {
             git.reset();
-            git.pull().
+
+            final PullCommand pullCommand = git.pull().
                 setCredentialsProvider( this.authenticationEntry.getCredentialsProvider() ).
-                setTimeout( this.timeout ).
-                call();
+                setTimeout( this.timeout );
+
+            if ( !Strings.isNullOrEmpty( this.ref ) )
+            {
+                pullCommand.setRemoteBranchName( this.ref );
+            }
+
+            pullCommand.call();
             LOG.info( "Pulled in changes from git repository [" + this.name + "]" );
         }
         catch ( final Exception e )
@@ -40,13 +50,19 @@ public class GitHTTPSConnection
     {
         try
         {
-            Git.cloneRepository().
+            final CloneCommand cloneCommand = Git.cloneRepository().
                 setCredentialsProvider( this.authenticationEntry.getCredentialsProvider() ).
                 setDirectory( this.dir ).
                 setURI( this.url ).
                 setBare( false ).
-                setTimeout( this.timeout ).
-                call();
+                setTimeout( this.timeout );
+
+            if ( !Strings.isNullOrEmpty( this.ref ) )
+            {
+                cloneCommand.setBranch( this.ref );
+            }
+
+            cloneCommand.call();
         }
         catch ( final Exception e )
         {

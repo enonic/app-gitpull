@@ -70,6 +70,8 @@ final class GitConnectionConfig
 
         final Integer timeout = getConnectionTimeout( name, props );
 
+        final String ref = Strings.emptyToNull( props.get( name + ".ref" ) );
+
         final ConnectionType connectionType = getConnectionType( url );
 
         if ( connectionType == null )
@@ -87,6 +89,7 @@ final class GitConnectionConfig
                 name( name ).
                 url( url ).
                 timeout( timeout ).
+                ref( ref ).
                 authenticationEntry( httpsAuthentication ).
                 build();
         }
@@ -108,6 +111,7 @@ final class GitConnectionConfig
                 name( name ).
                 url( url ).
                 timeout( timeout ).
+                ref( ref ).
                 strictHostKeyChecking( Strings.isNullOrEmpty( strictHostKeyChecking ) || Boolean.getBoolean( strictHostKeyChecking ) ).
                 privateKeyLocation( new File( privateKey ) ).
                 build();

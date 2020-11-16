@@ -2,7 +2,9 @@ package com.enonic.app.gitpull.connection;
 
 import java.io.File;
 
+import org.eclipse.jgit.api.CloneCommand;
 import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.PullCommand;
 import org.eclipse.jgit.transport.JschConfigSessionFactory;
 import org.eclipse.jgit.transport.OpenSshConfig;
 import org.eclipse.jgit.transport.SshSessionFactory;
@@ -10,6 +12,7 @@ import org.eclipse.jgit.transport.SshTransport;
 import org.eclipse.jgit.util.FS;
 
 import com.google.common.base.Preconditions;
+import com.google.common.base.Strings;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
@@ -58,13 +61,20 @@ public class GitSSHConnection
         try
         {
             git.reset();
-            git.pull().
+
+            final PullCommand pullCommand = git.pull().
                 setTimeout( this.timeout ).
                 setTransportConfigCallback( transport -> {
                     SshTransport sshTransport = (SshTransport) transport;
                     sshTransport.setSshSessionFactory( this.sessionFactory );
-                } ).
-                call();
+                } );
+
+            if ( !Strings.isNullOrEmpty( this.ref ) )
+            {
+                pullCommand.setRemoteBranchName( this.ref );
+            }
+
+            pullCommand.call();
             LOG.info( "Pulled in changes from git repository [" + this.name + "]" );
         }
         catch ( final Exception e )
@@ -78,7 +88,7 @@ public class GitSSHConnection
     {
         try
         {
-            Git.cloneRepository().
+            final CloneCommand cloneCommand = Git.cloneRepository().
                 setURI( this.url ).
                 setDirectory( this.dir ).
                 setBare( false ).
@@ -86,8 +96,14 @@ public class GitSSHConnection
                 setTransportConfigCallback( transport -> {
                     SshTransport sshTransport = (SshTransport) transport;
                     sshTransport.setSshSessionFactory( this.sessionFactory );
-                } ).
-                call();
+                } );
+
+            if ( !Strings.isNullOrEmpty( this.ref ) )
+            {
+                cloneCommand.setBranch( this.ref );
+            }
+
+            cloneCommand.call();
             LOG.info( "Cloned git repository [" + this.name + "]" );
         }
         catch ( final Exception e )
