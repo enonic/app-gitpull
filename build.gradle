@@ -14,16 +14,14 @@ app {
     name = 'com.enonic.app.gitpull'
     displayName = 'GitPull App'
     vendorName = 'Enonic AS'
-    vendorUrl = 'http://enonic.com'
+    vendorUrl = 'https://enonic.com'
     systemVersion = "${xpVersion}"
 }
 
 dependencies {
-    compile "com.enonic.xp:core-api:${xpVersion}"
-    compile "com.enonic.xp:jaxrs-api:${xpVersion}"
-    include 'org.eclipse.jgit:org.eclipse.jgit:6.0.0.202111291000-r'
-    include 'org.eclipse.jgit:org.eclipse.jgit.ssh.jsch:5.13.0.202109080827-r'
-    testCompile 'junit:junit:4.13.2'
-    testCompile 'org.mockito:mockito-core:+'
-    testCompile "com.enonic.xp:testing:${xpVersion}"
+    implementation "com.enonic.xp:core-api:${xpVersion}"
+    implementation "com.enonic.xp:jaxrs-api:${xpVersion}"
+    include 'org.eclipse.jgit:org.eclipse.jgit.ssh.jsch:6.0.0.202111291000-r'
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.mockito:mockito-core:4.1.0'
 }
