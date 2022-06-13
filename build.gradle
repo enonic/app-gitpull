@@ -21,7 +21,7 @@ app {
 dependencies {
     implementation "com.enonic.xp:core-api:${xpVersion}"
     implementation "com.enonic.xp:jaxrs-api:${xpVersion}"
-    include 'org.eclipse.jgit:org.eclipse.jgit.ssh.jsch:6.1.0.202203080745-r'
+    include 'org.eclipse.jgit:org.eclipse.jgit.ssh.jsch:6.2.0.202206071550-r'
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.mockito:mockito-core:4.6.1'
 }
