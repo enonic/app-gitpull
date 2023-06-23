@@ -51,8 +51,10 @@ gitProd.strictHostKeyChecking = false
 The jgit is a bit particular on the format of the key, so use the ```-m PEM```-switch to generate keys if having trouble with private key not accepted, e.g
 
 ````
-ssh-keygen -t rsa -m PEM
+ssh-keygen -t ecdsa -b 256 -m PEM
 ````
+
+Note: RSA keys with SHA1 signature that are created after Nov 2021 are not allowed by Github.
 
 To allow ssh to a repo, add host to ```~/.ssh/known_hosts```, or optionally specify the ```strictHostKeyChecking=false``` option on a connection 
 
