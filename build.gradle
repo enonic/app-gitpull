@@ -1,7 +1,7 @@
 plugins {
     id 'jacoco'
     id 'com.enonic.defaults' version '2.1.6'
-    id 'com.enonic.xp.app' version '3.6.2'
+    id 'com.enonic.xp.app'
     id 'maven-publish'
 }
 
@@ -10,17 +10,9 @@ repositories {
     xp.enonicRepo()
 }
 
-app {
-    name = 'com.enonic.app.gitpull'
-    displayName = 'GitPull App'
-    vendorName = 'Enonic AS'
-    vendorUrl = 'https://enonic.com'
-    systemVersion = "${xpVersion}"
-}
-
 dependencies {
-    implementation "com.enonic.xp:core-api:${xpVersion}"
-    implementation "com.enonic.xp:jaxrs-api:${xpVersion}"
+    implementation xplibs.api.core
+    implementation xplibs.api.jaxrs
     include 'org.eclipse.jgit:org.eclipse.jgit.ssh.jsch:6.10.0.202406032230-r'
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.mockito:mockito-core:5.23.0'
