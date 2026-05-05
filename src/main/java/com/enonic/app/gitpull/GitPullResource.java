@@ -1,8 +1,8 @@
 package com.enonic.app.gitpull;
 
-import javax.annotation.security.RolesAllowed;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
+import jakarta.annotation.security.RolesAllowed;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.Path;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
