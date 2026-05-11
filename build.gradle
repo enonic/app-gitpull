@@ -13,7 +13,7 @@ repositories {
 dependencies {
     implementation xplibs.api.core
     implementation xplibs.api.jaxrs
-    include 'org.eclipse.jgit:org.eclipse.jgit.ssh.jsch:6.10.0.202406032230-r'
+    include 'org.eclipse.jgit:org.eclipse.jgit.ssh.jsch:7.6.0.202603022253-r'
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.mockito:mockito-core:5.23.0'
 }
