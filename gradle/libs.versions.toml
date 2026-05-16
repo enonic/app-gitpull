@@ -1,0 +1,9 @@
+[versions]
+jgit    = "7.6.0.202603022253-r"
+junit   = "4.13.2"
+mockito = "5.23.0"
+
+[libraries]
+jgit-ssh-jsch = { module = "org.eclipse.jgit:org.eclipse.jgit.ssh.jsch", version.ref = "jgit" }
+junit         = { module = "junit:junit",                                version.ref = "junit" }
+mockito-core  = { module = "org.mockito:mockito-core",                   version.ref = "mockito" }
